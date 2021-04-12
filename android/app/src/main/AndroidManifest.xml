@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.task_1">
+    package="com.flazhost.sosmed">
    <application
-        android:label="task_1"
+        android:label="sosmed"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

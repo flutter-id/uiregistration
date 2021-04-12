@@ -1,4 +1,4 @@
-package com.example.task_1
+package com.flazhost.sosmed
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'login.dart';
 import 'register.dart';
 
@@ -13,6 +14,7 @@ class Welcome extends StatefulWidget {
 class _WelcomeState extends State<Welcome> {
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: Container(
         decoration: BoxDecoration(
             gradient: LinearGradient(
