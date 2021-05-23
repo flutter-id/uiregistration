@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
-import 'login.dart';
+import 'home.dart';
 import 'register.dart';
+import 'package:sk_alert_dialog/sk_alert_dialog.dart';
 
 class Login extends StatefulWidget {
   Login({Key key, this.title}) : super(key: key);
@@ -12,6 +13,10 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  TextEditingController usernameController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  String username = "", password = "";
+
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -40,13 +45,7 @@ class _LoginState extends State<Login> {
             clipper: MyClipper(),
             child: Container(
               width: double.infinity,
-              decoration: BoxDecoration(color: Color.fromRGBO(251, 97, 0, 1)
-                  // image: DecorationImage(
-                  //     image: NetworkImage(
-                  //         "https://www.daysoftheyear.com/wp-content/uploads/look-up-at-the-sky-day-1.jpg")
-                  //     fit: BoxFit.cover
-                  //     )
-                  ),
+              decoration: BoxDecoration(color: Color.fromRGBO(251, 97, 0, 1)),
               child: Container(
                 margin: EdgeInsets.all(10),
                 child: Column(
@@ -89,7 +88,7 @@ class _LoginState extends State<Login> {
                 Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      'Email ID',
+                      'Username',
                       style:
                           TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
                       textAlign: TextAlign.left,
@@ -98,6 +97,7 @@ class _LoginState extends State<Login> {
                   height: 5,
                 ),
                 TextField(
+                  controller: usernameController,
                   decoration: InputDecoration(
                     filled: true,
                     fillColor: Colors.grey.withOpacity(0.3),
@@ -105,7 +105,7 @@ class _LoginState extends State<Login> {
                       borderSide:
                           BorderSide(width: 0.0, style: BorderStyle.none),
                     ),
-                    hintText: 'email@domain.tld',
+                    hintText: 'Username',
                     // prefixIcon: Icon(Icons.mail_outline),
                   ),
                 ),
@@ -124,6 +124,7 @@ class _LoginState extends State<Login> {
                   height: 5,
                 ),
                 TextField(
+                  controller: passwordController,
                   obscureText: true,
                   decoration: InputDecoration(
                     filled: true,
@@ -148,8 +149,23 @@ class _LoginState extends State<Login> {
                         style: TextStyle(color: Colors.white, fontSize: 15),
                       ),
                       onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (context) => Login()));
+                        username = usernameController.text;
+                        password = passwordController.text;
+                        if (username == 'admin' && password == 'admin') {
+                          Navigator.of(context).push(
+                              MaterialPageRoute(builder: (context) => Home()));
+                        } else {
+                          SKAlertDialog.show(
+                            context: context,
+                            type: SKAlertType.info,
+                            title: 'Login Gagal',
+                            message:
+                                'Silahkan Cek Kembali \n Username & Password Anda!',
+                            onOkBtnTap: (value) {
+                              print('Okay Button Tapped');
+                            },
+                          );
+                        }
                       },
                       padding: EdgeInsets.all(15)),
                 ),
@@ -199,8 +215,23 @@ class _LoginState extends State<Login> {
                     textColor: Colors.white,
                     color: Color.fromRGBO(24, 80, 171, 1),
                     onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (context) => Login()));
+                      username = usernameController.text;
+                      password = passwordController.text;
+                      if (username == 'admin' && password == 'admin') {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (context) => Home()));
+                      } else {
+                        SKAlertDialog.show(
+                          context: context,
+                          type: SKAlertType.info,
+                          title: 'Login Gagal',
+                          message:
+                              'Silahkan Cek Kembali \n Username & Password Anda!',
+                          onOkBtnTap: (value) {
+                            print('Okay Button Tapped');
+                          },
+                        );
+                      }
                     },
                   ),
                 ),
