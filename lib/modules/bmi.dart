@@ -141,53 +141,66 @@ class _BmiState extends State<Bmi> {
                       String jk1 = "", status1 = "";
                       berat = int.tryParse(beratController.text) ?? 0;
                       tinggi = int.tryParse(tinggiController.text) ?? 0;
-                      hasil = berat / ((tinggi / 100) * (tinggi / 100));
-                      if (jk == 'Laki-Laki') {
-                        if (hasil < 17) {
-                          status1 = 'Kurus';
-                        } else if (hasil < 23) {
-                          status1 = 'Ideal';
-                        } else if (hasil < 27) {
-                          status1 = 'Gemuk';
-                        } else {
-                          status1 = 'Obesitas';
-                        }
+                      if (berat <= 0 || tinggi <= 0) {
+                        SKAlertDialog.show(
+                          context: context,
+                          type: SKAlertType.info,
+                          title: 'Nilai Masih Kosong',
+                          message: 'Berat Badan atau ' +
+                              '\n Tinggi Badan Masih Kosong ',
+                          onOkBtnTap: (value) {
+                            print('Okay Button Tapped');
+                          },
+                        );
                       } else {
-                        if (hasil < 18) {
-                          status1 = 'Kurus';
-                        } else if (hasil < 25) {
-                          status1 = 'Ideal';
-                        } else if (hasil < 27) {
-                          status1 = 'Gemuk';
+                        hasil = berat / ((tinggi / 100) * (tinggi / 100));
+                        if (jk == 'Laki-Laki') {
+                          if (hasil < 17) {
+                            status1 = 'Kurus';
+                          } else if (hasil < 23) {
+                            status1 = 'Ideal';
+                          } else if (hasil < 27) {
+                            status1 = 'Gemuk';
+                          } else {
+                            status1 = 'Obesitas';
+                          }
                         } else {
-                          status1 = 'Obesitas';
+                          if (hasil < 18) {
+                            status1 = 'Kurus';
+                          } else if (hasil < 25) {
+                            status1 = 'Ideal';
+                          } else if (hasil < 27) {
+                            status1 = 'Gemuk';
+                          } else {
+                            status1 = 'Obesitas';
+                          }
                         }
+                        setState(() {
+                          status = status1;
+                        });
+                        SKAlertDialog.show(
+                          context: context,
+                          type: SKAlertType.info,
+                          title: 'Hasil',
+                          message: 'Jenis Kelamin: ' +
+                              jk +
+                              '\n'
+                                  'Berat Badan: ' +
+                              berat.toString() +
+                              ' kg \n'
+                                  'Tinggi Badan: ' +
+                              tinggi.toString() +
+                              ' cm \n'
+                                  'BMI: ' +
+                              hasil.toStringAsFixed(2) +
+                              ' kg/m2 \n'
+                                  'Status: ' +
+                              status,
+                          onOkBtnTap: (value) {
+                            print('Okay Button Tapped');
+                          },
+                        );
                       }
-                      setState(() {
-                        status = status1;
-                      });
-                      SKAlertDialog.show(
-                        context: context,
-                        type: SKAlertType.info,
-                        title: 'Hasil',
-                        message: 'Jenis Kelamin: ' +
-                            jk +
-                            '\n'
-                                'Berat Badan: ' +
-                            berat.toString() +
-                            ' kg \n'
-                                'Tinggi Badan: ' +
-                            tinggi.toString() +
-                            ' cm \n'
-                                'BMI: ' +
-                            hasil.toStringAsFixed(2) +
-                            ' kg/m2 \n'
-                                'Status: ' +
-                            status,
-                        onOkBtnTap: (value) {
-                          print('Okay Button Tapped');
-                        },
-                      );
                     },
                     padding: EdgeInsets.all(15)),
               ),
